@@ -50,10 +50,10 @@ The system follows a client-server architecture with:
 
 ### Technology Stack
 - **Frontend**: React, TailwindCSS, React Three Fiber, Three.js
-- **Backend**: Python, Flask, Blender (headless mode)
-- **Models**: Fine-tuned variants of 3D generative models
+- **Backend**: Python, Flask, Blender (headless mode), Hive Model (Text to Image), Remove BG
+- **Models**: Fine-tuned variants of 3D generative models (SPAR3D, InstantMesh, One-2-3-45)
 - **Data Processing**: Objaverse utilities, custom data transformation scripts
-- **Deployment**: Standard web deployment with GPU acceleration for model inference
+- **Deployment**: Standard web deployment with GPU acceleration for model inference (Planned)
 
 ## Frontend Components
 
@@ -140,11 +140,11 @@ The script provides flexible rendering options including:
 
 The backend provides several RESTful API endpoints:
 
-1. `/api/generate/text`: Generate a 3D model from a text prompt
-2. `/api/generate/image`: Generate a 3D model from an uploaded image
-3. `/api/edit`: Modify an existing model based on text instructions
-4. `/api/save`: Save a model to the user's account
-5. `/api/download/stl/:modelId`: Download a model in STL format for 3D printing
+1. `/api/generate/text`: Generate a 3D model from a text prompt and then pass it to the remove_background function.
+2. `/api/remove_background`: Take the uploaded image, remove the background and pass it to the model for inference
+3. `/api/edit`: Modify an existing model based on text instructions (Planned)
+4. `/api/save`: Save a model to the user's account (Planned)
+5. `/api/download/stl/:modelId`: Download a model in STL format for 3D printing (Planned)
 
 ## Model Training and Fine-Tuning
 
@@ -172,6 +172,8 @@ Key considerations for model selection included:
 - Structural soundness for printing
 - Support for conditional generation (text/image)
 
+We experimented with several 3D Generative Models such as SPAR3D, InstantMesh, and One-2-3-45. To train and fine-tune these models, we've processed the data and collected about ~900 3D models related to jewelry and used them to generate 6 views of each model. So we've generated ~5400 datapoints for us to train and fine-tune the 3D AI model.
+
 ## Data Processing
 
 ### Data Cleaning and Normalization
@@ -188,6 +190,10 @@ To improve model robustness, the dataset was augmented with:
 - Multiple camera angles per model
 - Variation in lighting conditions
 - Material and texture variations
+
+### Dataset
+
+Dataset is available to download from [here](https://liveumb-my.sharepoint.com/:f:/g/personal/n_jain001_umb_edu/En20jf0wJcNPt8YAZOJGuV8B639bR3WCoxkY6O24mqKuxA?e=Q2hvat), which contains 3D models in '3d-models' folder and images in 'views' inside the models subfolder.
 
 ## Features and Functionalities
 
